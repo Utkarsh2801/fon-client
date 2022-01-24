@@ -1,0 +1,10 @@
+.dashboard {
+    width: 80%;
+    height : 90%;
+    background-color: rgba(255,255,255, 0.7);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}

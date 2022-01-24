@@ -1,24 +1,55 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
+
+import Loading from './components/Loading/Loading';
+import Login from "./components/Login/Login"
+import Register from './components/Register/Register';
+import Wrapper from './components/Wrapper/Wrapper';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+  useHistory,
+} from "react-router-dom";
 import './App.css';
+import AuthProvider from './context/auth-context';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
+import Dashboard from './components/Dashboard/Dashboard';
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AuthProvider isLoading={isLoading} setIsLoading={setIsLoading}>
+          <Wrapper>
+            {isLoading && <Loading />}
+            <Router>
+          <Switch>
+            <Route exact path="/">
+              <Redirect to={{ pathname: "/dashboard" }} />
+            </Route>
+            {/* <Route exact path="/forgot-password">
+              <ForgotPassword />
+            </Route> */}
+            <Route exact={true} path="/login">
+              <Login />
+            </Route>
+            <Route exact={true} path="/register">
+              <Register />
+            </Route>
+            <PrivateRoute path="/dashboard">
+                <Dashboard />
+            </PrivateRoute>
+            <Route>
+              <Redirect to="/" />
+            </Route>
+          </Switch>
+        </Router>  
+
+
+          </Wrapper>
+      </AuthProvider>
+      
   );
 }
 
