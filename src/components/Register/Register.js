@@ -7,19 +7,21 @@ import { useHistory } from "react-router-dom";
 import { AuthContext } from "../../context/auth-context";
 
 const Register = () => {
-  const { isLoggedIn, setIsLoading } = React.useContext(AuthContext);
+  const { isLoggedIn, setIsLoading, register } = React.useContext(AuthContext);
   const history = useHistory();
+  const [form] = Form.useForm();
 
   useEffect(() => {
     if(isLoggedIn) {
-      history.push('/dasboard');
+      return history.push('/dashboard');
     }
 
     setIsLoading(false);
-  }, []);
+  }, [isLoggedIn]);
 
-  const onFinish = (values) => {
-    console.log("Received values of form: ", values);
+  const onFinish = async (values) => {
+      await register(values.name, values.email, values.password, 'manufacturer');
+      form.resetFields();
   };
 
   return (
@@ -30,10 +32,12 @@ const Register = () => {
           name="normal_login"
           className="login-form"
           initialValues={{ remember: true }}
-          onFinish={onFinish}>
+          onFinish={onFinish}
+          form={form}
+          >
           
           <Form.Item
-            name="fullName"
+            name="name"
             rules={[
               { required: true, message: "Please input your full name!" },
             ]}>

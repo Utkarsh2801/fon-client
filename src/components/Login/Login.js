@@ -8,20 +8,23 @@ import { AuthContext } from '../../context/auth-context';
 import { useHistory } from "react-router-dom";
 
 
-const Login = () => {
-  const { isLoggedIn, setIsLoading } = React.useContext(AuthContext);
+const Login = props => {
+  const { isLoggedIn, setIsLoading, login } = React.useContext(AuthContext);
   const history = useHistory();
+  const [form] = Form.useForm();
   
   useEffect(() => {
     if(isLoggedIn) {
-      history.push('/dasboard');
+      return history.push('/dashboard');
     }
 
     setIsLoading(false);
-  }, []);
+  }, [isLoggedIn]);
 
-  const onFinish = (values) => {
-    console.log("Received values of form: ", values);
+  const onFinish = async (values) => {
+    login(values.email, values.password);
+
+    form.resetFields();
   };
 
   return (
@@ -32,7 +35,8 @@ const Login = () => {
           name="normal_login"
           className="login-form"
           initialValues={{ remember: true }}
-          onFinish={onFinish}>
+          onFinish={onFinish}
+          form={form}>
           <Form.Item
             name="email"
             rules={[

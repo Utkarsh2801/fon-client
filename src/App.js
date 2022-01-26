@@ -15,6 +15,9 @@ import './App.css';
 import AuthProvider from './context/auth-context';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import Dashboard from './components/Dashboard/Dashboard';
+import ForgotPassword from './components/ForgotPassword/ForgotPassowrd';
+import ProductDetailsProvider from './context/product-context';
+
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -28,18 +31,20 @@ function App() {
             <Route exact path="/">
               <Redirect to={{ pathname: "/dashboard" }} />
             </Route>
-            {/* <Route exact path="/forgot-password">
+            <Route exact path="/forgot-password">
               <ForgotPassword />
-            </Route> */}
+            </Route>
             <Route exact={true} path="/login">
               <Login />
             </Route>
             <Route exact={true} path="/register">
               <Register />
             </Route>
-            <PrivateRoute path="/dashboard">
-                <Dashboard />
-            </PrivateRoute>
+            <ProductDetailsProvider>
+              <PrivateRoute path="/dashboard">
+                  <Dashboard />
+              </PrivateRoute>
+            </ProductDetailsProvider>
             <Route>
               <Redirect to="/" />
             </Route>
