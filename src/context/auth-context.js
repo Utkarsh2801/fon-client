@@ -47,6 +47,25 @@ const AuthProvider = ({children, ...rest}) => {
       setIsLoggedIn(true);
   }
 
+  const forgotPassword = async (email) => {
+    rest.setIsLoading(true);
+
+    const response = await http.post(`${apis.BASE_SERVER_URL}/${apis.FORGOT_PASSWORD}/`, {
+      email
+    });
+
+    rest.setIsLoading(false);
+    console.log(response);
+    
+    if(!response.data.success) {
+      return message.error(response.data.message)
+    } 
+
+    message.success(response.data.message);
+
+}
+
+
   const logout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('userId');
@@ -73,6 +92,7 @@ const AuthProvider = ({children, ...rest}) => {
     login,
     logout,
     register,
+    forgotPassword,
     ...rest
   };
 

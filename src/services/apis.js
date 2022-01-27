@@ -5,5 +5,6 @@ export default {
     ADD_PRODUCT : "app/add-product",
     GET_PRODUCTS_FOR_MANUFACTURER : "app/get-manufacturer-codes",
     GET_PRODUCT_DETAILS : "app/get-product-details",
-    GET_QR_CODE : "app/generate-qrcode"
+    GET_QR_CODE : "app/generate-qrcode",
+    FORGOT_PASSWORD : "auth/forgot-password"
 }

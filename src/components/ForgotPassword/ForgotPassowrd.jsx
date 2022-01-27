@@ -7,8 +7,20 @@ import { AuthContext } from '../../context/auth-context';
 import { useHistory } from "react-router-dom";
 
 const ForgotPassword = () => {
-  const onFinish = (values) => {
-    console.log("Received values of form: ", values);
+  const { isLoggedIn, setIsLoading, forgotPassword } = React.useContext(AuthContext);
+  const history = useHistory();
+  
+  useEffect(() => {
+    if(isLoggedIn) {
+      return history.push('/dashboard');
+    }
+
+    setIsLoading(false);
+  }, [isLoggedIn]);
+
+
+  const onFinish = async(values) => {
+    await forgotPassword(values.email);
   };
 
   return (

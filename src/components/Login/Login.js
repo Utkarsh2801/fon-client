@@ -26,6 +26,7 @@ const Login = props => {
 
     form.resetFields();
   };
+  
 
   return (
     <div className={classes.login}>
@@ -60,7 +61,7 @@ const Login = props => {
             />
           </Form.Item>
           <Form.Item>
-            <a className="login-form-forgot" href="">
+            <a className="login-form-forgot" tyle={{color : "#12B0E8"}} onClick={() => history.push('/forgot-password')}>
               Forgot Password?
             </a>
           </Form.Item>
