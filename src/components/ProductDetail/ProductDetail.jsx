@@ -22,7 +22,7 @@ const ProductDetail = ({ details: productDetails }) => {
                 'userid' : localStorage.getItem('userId')
             }
         });
-        console.log("++++++++++++++++++++++++++++++++", response);
+      
         let reader = response.body.getReader();
         let done, value;
         let chunks = [];
@@ -53,7 +53,7 @@ const ProductDetail = ({ details: productDetails }) => {
         <div className={classes.details}>
             <div className={classes.properties}>
                 <h2>Details</h2>
-                 {Object.entries(productDetails.details).map(([property, value], index) => (<p>property - value</p>))}
+                 {Object.entries(productDetails.details).map(([property, value], index) => (<p key={index}>{property} - {value}</p>))}
             </div>
             <div className={classes.qrbox}>
                 <div>
